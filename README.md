@@ -1,5 +1,5 @@
 # Introduction
-📊 Dive into the data job market! Focusing on data analyst roles, this project explores 💰 top-paying jobs, 🔥 in-demand skills, and 📈 where high demand meets high salary in data analytics.
+📊 Explore the data job market! This project focuses on data analyst roles, uncovering 💰 the highest-paying positions, 🔥 most sought-after skills, and 📈 the intersection of high demand and top salaries in data analytics.
 
 🔍 SQL queries? Check them out here: [queries folder](/queries/)
 

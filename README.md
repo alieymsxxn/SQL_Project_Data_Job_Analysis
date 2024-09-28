@@ -32,20 +32,20 @@ To identify the highest-paying roles, I filtered data analyst positions by avera
 
 ```sql
 SELECT	
-	jpf.job_id id,
-	jpf.job_title title,
-	jpf.job_title_short short_title,
-	jpf.job_location location,
-	cd.name company_name,
-	jpf.salary_year_avg avg_yearly_salary,
-	jpf.job_schedule_type schedule_type,
-	jpf.job_posted_date::DATE post_date
+    jpf.job_id id,
+    jpf.job_title title,
+    jpf.job_title_short short_title,
+    jpf.job_location location,
+    cd.name company_name,
+    jpf.salary_year_avg avg_yearly_salary,
+    jpf.job_schedule_type schedule_type,
+    jpf.job_posted_date::DATE post_date
 FROM job_postings_fact jpf
 INNER JOIN company_dim cd ON jpf.company_id = cd.company_id
 WHERE 
-	jpf.job_location = 'Anywhere' 
-	AND jpf.job_title_short LIKE '%Data%Analyst%'
-	AND jpf.salary_year_avg IS NOT NULL
+    jpf.job_location = 'Anywhere' 
+    AND jpf.job_title_short LIKE '%Data%Analyst%'
+    AND jpf.salary_year_avg IS NOT NULL
 ORDER BY jpf.salary_year_avg DESC
 LIMIT 10;
 ```
@@ -62,25 +62,25 @@ To understand what skills are required for the top-paying jobs, I joined the job
 ```sql
 WITH top_10_jobs AS (
     SELECT
-		jpf.job_id,
-		jpf.job_title_short job_title,
-		cd.name company,
-		jpf.job_location location,
-		jpf.job_posted_date::DATE post_date,
-		jpf.salary_year_avg salary_avg
-	FROM job_postings_fact jpf
-	INNER JOIN company_dim cd ON jpf.company_id = cd.company_id
-	WHERE 
-		jpf.job_title_short LIKE '%Data%Analyst%'
-		AND jpf.salary_year_avg IS NOT NULL
-		AND jpf.job_location = 'Anywhere'
-	ORDER BY jpf.salary_year_avg DESC
-	LIMIT 10
+        jpf.job_id,
+	jpf.job_title_short job_title,
+	cd.name company,
+	jpf.job_location location,
+	jpf.job_posted_date::DATE post_date,
+	jpf.salary_year_avg salary_avg
+    FROM job_postings_fact jpf
+    INNER JOIN company_dim cd ON jpf.company_id = cd.company_id
+    WHERE 
+        jpf.job_title_short LIKE '%Data%Analyst%'
+        AND jpf.salary_year_avg IS NOT NULL
+        AND jpf.job_location = 'Anywhere'
+    ORDER BY jpf.salary_year_avg DESC
+    LIMIT 10
 )
 
 SELECT
-	sd.skills,
-	t10j.*
+    sd.skills,
+    t10j.*
 FROM top_10_jobs t10j
 INNER JOIN skills_job_dim sjd ON t10j.job_id = sjd.job_id
 INNER JOIN skills_dim sd ON sjd.skill_id = sd.skill_id
@@ -101,16 +101,16 @@ This query helped identify the skills most frequently requested in job postings,
 
 ```sql
 SELECT
-	sd.skills,
-	COUNT(jpwc.id) jobs
+    sd.skills,
+    COUNT(jpwc.id) jobs
 FROM (
-	SELECT 
-		jpf.job_id id,
-		jpf.job_title_short title,
-		jpf.salary_year_avg avg_salary
-	FROM job_postings_fact jpf
-	WHERE job_title_short = 'Data Analyst'
-	) jpwc
+    SELECT 
+        jpf.job_id id,
+	jpf.job_title_short title,
+        jpf.salary_year_avg avg_salary
+    FROM job_postings_fact jpf
+    WHERE job_title_short = 'Data Analyst'
+    ) jpwc
 INNER JOIN skills_job_dim sjd ON jpwc.id = sjd.job_id
 INNER JOIN skills_dim sd ON sjd.skill_id = sd.skill_id
 GROUP BY sd.skills
@@ -135,13 +135,13 @@ Here's the breakdown of the most demanded skills for data analysts in 2023
 Exploring the average salaries associated with different skills revealed which skills are the highest paying.
 ```sql
 SELECT
-	sd.skills skill,
-	ROUND(AVG(jpf.salary_year_avg), 2) avg_salary
+    sd.skills skill,
+    ROUND(AVG(jpf.salary_year_avg), 2) avg_salary
 FROM job_postings_fact jpf
 INNER JOIN skills_job_dim sjd ON jpf.job_id = sjd.job_id
 INNER JOIN skills_dim sd ON sjd.skill_id = sd.skill_id
 WHERE
-	jpf.job_title_short = 'Data Analyst'
+    jpf.job_title_short = 'Data Analyst'
     AND jpf.salary_year_avg IS NOT NULL
     AND jpf.job_work_from_home = True 
 GROUP BY sd.skills

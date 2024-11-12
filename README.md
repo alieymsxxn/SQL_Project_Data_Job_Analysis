@@ -238,3 +238,42 @@ From the analysis, several general insights emerged:
 ### Closing Thoughts
 
 This project enhanced my SQL skills and provided valuable insights into the data analyst job market. The findings from the analysis serve as a guide to prioritizing skill development and job search efforts. Aspiring data analysts can better position themselves in a competitive job market by focusing on high-demand, high-salary skills. This exploration highlights the importance of continuous learning and adaptation to emerging trends in the field of data analytics.
+
+# Getting Started with PostgreSQL and pgAdmin
+
+To explore this project's database locally, I've provided Docker configurations for easy setup of PostgreSQL and pgAdmin. Here's how to get started:
+
+1. **Set Up Environment Variables**
+   - Navigate to the `/docker` directory
+   - Copy `.env_sample` to create your own `.env` file:
+     ```bash
+     cp .env_sample .env
+     ```
+   - Modify the `.env` file with your preferred credentials:
+     ```
+     POSTGRES_USER=your_postgres_user
+     POSTGRES_PASSWORD=your_postgres_password
+     POSTGRES_DB=your_database_name
+     PGADMIN_DEFAULT_EMAIL=your_email@example.com
+     PGADMIN_DEFAULT_PASSWORD=your_pgadmin_password
+     LOCAL_CSV_DIR=/path/to/your/csv/files
+     ```
+
+2. **Start the Services**
+   - From the `/docker` directory, run:
+     ```bash
+     docker-compose up -d
+     ```
+   This will start both PostgreSQL and pgAdmin containers in detached mode.
+
+3. **Access pgAdmin**
+   - Open your browser and navigate to `http://localhost:5050`
+   - Log in using the email and password you set in the `.env` file
+   - Connect to the PostgreSQL server using the credentials from your `.env` file
+     - Host: `postgres`
+     - Port: `5432`
+     - Username: Your `POSTGRES_USER`
+     - Password: Your `POSTGRES_PASSWORD`
+
+Now you're ready to run the analysis queries and explore the data job market insights!
+

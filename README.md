@@ -48,7 +48,7 @@ To explore this project's database locally, I've provided Docker configurations 
 
 Now you're ready to run the analysis queries and explore the data job market insights!
 
-### The questions I wanted to answer through my SQL queries were:
+# The questions I wanted to answer through my SQL queries were:
 
 1. What are the top-paying data analyst jobs?
 2. What skills are required for these top-paying jobs?
